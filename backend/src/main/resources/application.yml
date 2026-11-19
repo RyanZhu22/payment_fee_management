@@ -8,7 +8,7 @@ spring:
   datasource:
     url: ${OMS_DB_URL:jdbc:postgresql://127.0.0.1:5432/omsweb}
     username: ${OMS_DB_USER:omsweb}
-    password: ${OMS_DB_PASSWORD:omsweb-local}
+    password: ${OMS_DB_PASSWORD}
   servlet:
     multipart:
       max-file-size: 8MB
@@ -20,6 +20,7 @@ spring:
 oms:
   demo:
     enabled: ${OMS_DEMO_ENABLED:true}
+    password: ${OMS_DEMO_PASSWORD:}
   documents:
     prefix:
       notice: ${OMS_NOTICE_PREFIX:NOT}

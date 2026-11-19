@@ -38,7 +38,8 @@ class BillingServiceIntegrationTest {
 
     @BeforeAll
     static void migrate() {
-        dataSource = new DriverManagerDataSource(System.getenv("OMS_BILLING_TEST_DB_URL"), "omsweb", "omsweb-local");
+        dataSource = new DriverManagerDataSource(System.getenv("OMS_BILLING_TEST_DB_URL"),
+            System.getenv().getOrDefault("OMS_DB_USER", "omsweb"), System.getenv("OMS_DB_PASSWORD"));
         Flyway.configure().dataSource(dataSource).load().migrate();
     }
 

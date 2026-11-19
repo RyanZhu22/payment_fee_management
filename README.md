@@ -4,15 +4,15 @@
 
 ## 启动
 
-需要 Docker Desktop、Java 25、Maven 和 Node.js 24。在本目录执行：
+本机运行需要 Docker Desktop、Java 25、Maven、Node.js 24 和 OpenSSL。在项目目录运行以下命令。
 
     ./start.sh
 
-首次运行会拉取数据库镜像、安装依赖并构建应用。看到服务启动后打开 [http://localhost:8080](http://localhost:8080)。按 Ctrl+C 停止应用。用 docker compose down 停止数据库容器，数据库卷继续保留费用记录。
+首次运行会在 Git 忽略的 `.env` 中生成随机数据库密码和演示密码，并拉取数据库镜像、安装依赖和构建应用。看到服务启动后打开 [http://localhost:8080](http://localhost:8080)。按 Ctrl+C 停止应用。用 docker compose down 停止数据库容器，数据库卷继续保留费用记录。
 
-也可让 Docker 构建并启动整套应用：
+也可让 Docker 构建并启动整套应用。此方式需要 Docker Desktop 和 OpenSSL。
 
-    docker compose --profile app up --build
+    ./start.sh --docker
 
 如果只改前端，启动后端后在另一个终端执行：
 
@@ -21,13 +21,19 @@
 
 前端开发地址为 [http://localhost:5173](http://localhost:5173)，API 请求由 Vite 转发。启动脚本可通过 SERVER_PORT 和 OMS_DB_PORT 环境变量更改本机端口。修改后端端口时，前端开发配置也需要指向相同的 API 地址。
 
+如果已有本地数据库卷，修改 `.env` 中的 `OMS_DB_PASSWORD` 后需要同步修改数据库用户的密码。使用以下命令进入运行中的数据库容器。
+
+    docker compose exec db psql -U omsweb -d omsweb
+
+在 PostgreSQL 提示符下运行 `\password omsweb`，输入两次新密码，然后用 `\q` 退出。重新运行启动脚本即可保留已有数据并使用新凭据。
+
 ## 界面语言
 
 在侧栏底部选择简体中文或 English。移动端可在顶部切换，浏览器会记住选择。报表和新生成的 PDF 跟随所选语言。已归档的 PDF 按生成时的版本下载。Excel 导入模板和 FIS 文件使用固定的接口字段，费用和付款人名称以原始业务资料为准。
 
 ## 登录与职责
 
-默认演示模式提供 operator、finance、auditor 和 admin 账号，密码都是 `Omsweb-Demo-2026!`。管理员可以在「用户账号」创建本地账号。应用通过服务端会话确认身份，写操作同时校验会话令牌。
+本地演示账号为 `operator`、`finance`、`auditor`、`admin`。密码取自当前环境或 `.env` 里的 `OMS_DEMO_PASSWORD`。
 
 - 运营人员维护未结算费用，按规则开立费用，上传结算凭证或提交冲正申请。
 - 财务人员发布费率，运行定期计费，复核结算与冲正，并导出 FIS 文件。
@@ -85,7 +91,7 @@
 
 ## 测试
 
-运行后端测试，覆盖报表、结算预检、文档和 FPS 等业务。设置 OMS_BILLING_TEST_DB_URL 指向专用 PostgreSQL 测试库可运行计费集成用例。
+运行后端测试，覆盖报表、结算预检、文档和 FPS 等业务。运行计费集成用例时，设置 `OMS_BILLING_TEST_DB_URL` 指向专用 PostgreSQL 测试库，并通过 `OMS_DB_PASSWORD` 提供测试库密码。数据库用户名默认为 `omsweb`，可用 `OMS_DB_USER` 设置。
 
     mvn -f backend/pom.xml test
 

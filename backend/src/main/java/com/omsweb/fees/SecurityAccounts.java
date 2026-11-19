@@ -33,11 +33,17 @@ class SecurityAccounts implements UserDetailsService {
     private final String demoPasswordHash;
 
     SecurityAccounts(JdbcClient jdbc, PasswordEncoder passwords, AuditTrail audit,
-                     @Value("${oms.demo.enabled:true}") boolean demoEnabled) {
+                     @Value("${oms.demo.enabled:true}") boolean demoEnabled,
+                     @Value("${oms.demo.password:}") String demoPassword) {
         this.jdbc = jdbc;
         this.passwords = passwords;
         this.audit = audit;
-        demoPasswordHash = demoEnabled ? passwords.encode("Omsweb-Demo-2026!") : null;
+        if (demoEnabled && (demoPassword.isBlank() || !validPasswordLength(demoPassword))) {
+            throw new IllegalStateException(
+                "Set OMS_DEMO_PASSWORD to at least 12 characters and at most 72 UTF-8 bytes when demo mode is enabled."
+            );
+        }
+        demoPasswordHash = demoEnabled ? passwords.encode(demoPassword) : null;
     }
 
     enum Role { OPERATOR, FINANCE, AUDITOR, ADMIN }
@@ -85,7 +91,7 @@ class SecurityAccounts implements UserDetailsService {
                 "Enter a username of 3 to 64 letters, digits, periods, underscores, @ signs or hyphens."
             ));
         }
-        if (password.length() < 12 || password.getBytes(StandardCharsets.UTF_8).length > 72) {
+        if (!validPasswordLength(password)) {
             throw new AppException(HttpStatus.BAD_REQUEST, text(
                 "密码须至少为 12 个字符，且不得超过 72 个 UTF-8 字节。",
                 "Enter a password of at least 12 characters and no more than 72 UTF-8 bytes."
@@ -109,6 +115,10 @@ class SecurityAccounts implements UserDetailsService {
 
     boolean hasAdministrator() {
         return jdbc.sql("SELECT EXISTS (SELECT 1 FROM app_users WHERE role = 'ADMIN')").query(Boolean.class).single();
+    }
+
+    private static boolean validPasswordLength(String password) {
+        return password.length() >= 12 && password.getBytes(StandardCharsets.UTF_8).length <= 72;
     }
 
     private static String normalize(String username) {

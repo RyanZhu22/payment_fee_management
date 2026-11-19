@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: omsweb
       POSTGRES_USER: omsweb
-      POSTGRES_PASSWORD: ${OMS_DB_PASSWORD:-omsweb-local}
+      POSTGRES_PASSWORD: ${OMS_DB_PASSWORD:?Set OMS_DB_PASSWORD in .env or the environment}
       TZ: Asia/Hong_Kong
     ports:
       - "127.0.0.1:${OMS_DB_PORT:-5432}:5432"
@@ -27,7 +27,11 @@ services:
     environment:
       SERVER_ADDRESS: 0.0.0.0
       OMS_DB_URL: jdbc:postgresql://db:5432/omsweb
-      OMS_DB_PASSWORD: ${OMS_DB_PASSWORD:-omsweb-local}
+      OMS_DB_PASSWORD: ${OMS_DB_PASSWORD:?Set OMS_DB_PASSWORD in .env or the environment}
+      OMS_DEMO_ENABLED: ${OMS_DEMO_ENABLED:-true}
+      OMS_DEMO_PASSWORD: ${OMS_DEMO_PASSWORD:-}
+      OMS_ADMIN_USERNAME: ${OMS_ADMIN_USERNAME:-}
+      OMS_ADMIN_PASSWORD: ${OMS_ADMIN_PASSWORD:-}
       OMS_STORAGE_DIR: /var/lib/omsweb/documents
       TZ: Asia/Hong_Kong
     ports:
