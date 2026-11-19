@@ -1,0 +1,40 @@
+name: omsweb-payment
+
+services:
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: omsweb
+      POSTGRES_USER: omsweb
+      POSTGRES_PASSWORD: ${OMS_DB_PASSWORD:-omsweb-local}
+      TZ: Asia/Hong_Kong
+    ports:
+      - "127.0.0.1:${OMS_DB_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U omsweb -d omsweb"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  app:
+    profiles: [app]
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SERVER_ADDRESS: 0.0.0.0
+      OMS_DB_URL: jdbc:postgresql://db:5432/omsweb
+      OMS_DB_PASSWORD: ${OMS_DB_PASSWORD:-omsweb-local}
+      OMS_STORAGE_DIR: /var/lib/omsweb/documents
+      TZ: Asia/Hong_Kong
+    ports:
+      - "127.0.0.1:${OMS_APP_PORT:-8080}:8080"
+    volumes:
+      - documents:/var/lib/omsweb/documents
+
+volumes:
+  postgres-data:
+  documents:

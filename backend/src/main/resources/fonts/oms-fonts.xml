@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+    <fontFamily name="OMS Sans">
+        <normal>
+            <ttf>fonts/NotoSansSC-Regular.ttf</ttf>
+        </normal>
+        <bold>
+            <ttf>fonts/NotoSansSC-Bold.ttf</ttf>
+        </bold>
+        <italic>
+            <ttf>fonts/NotoSansSC-Regular.ttf</ttf>
+        </italic>
+        <boldItalic>
+            <ttf>fonts/NotoSansSC-Bold.ttf</ttf>
+        </boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+    </fontFamily>
+</fontFamilies>

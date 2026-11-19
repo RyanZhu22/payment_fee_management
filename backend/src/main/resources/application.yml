@@ -1,0 +1,39 @@
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: omsweb-payment
+  datasource:
+    url: ${OMS_DB_URL:jdbc:postgresql://127.0.0.1:5432/omsweb}
+    username: ${OMS_DB_USER:omsweb}
+    password: ${OMS_DB_PASSWORD:omsweb-local}
+  servlet:
+    multipart:
+      max-file-size: 8MB
+      max-request-size: 9MB
+  quartz:
+    job-store-type: memory
+    wait-for-jobs-to-complete-on-shutdown: true
+
+oms:
+  demo:
+    enabled: ${OMS_DEMO_ENABLED:true}
+  documents:
+    prefix:
+      notice: ${OMS_NOTICE_PREFIX:NOT}
+      reminder: ${OMS_REMINDER_PREFIX:REM}
+      receipt: ${OMS_RECEIPT_PREFIX:RCP}
+    receipt-qr-base-url: ${OMS_RECEIPT_QR_BASE_URL:https://fps.example.test/receipt}
+  fps:
+    prefix: ${OMS_FPS_PREFIX:FPS}
+    expiry-days: ${OMS_FPS_EXPIRY_DAYS:30}
+    qr-base-url: ${OMS_FPS_QR_BASE_URL:https://fps.example.test/pay}
+  storage:
+    type: ${OMS_STORAGE_TYPE:local}
+    directory: ${OMS_STORAGE_DIR:./.local-data/documents}
+    s3:
+      bucket: ${OMS_S3_BUCKET:}
+      region: ${OMS_S3_REGION:ap-east-1}
+      endpoint: ${OMS_S3_ENDPOINT:}

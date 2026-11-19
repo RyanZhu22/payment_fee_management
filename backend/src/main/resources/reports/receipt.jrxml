@@ -1,0 +1,136 @@
+<jasperReport name="fee-receipt" resourceBundle="reports.messages" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="40" bottomMargin="36" uuid="1a9893e3-f37e-4bff-a621-4dd3f79f341a">
+	<parameter name="docNumber" class="java.lang.String"/>
+	<parameter name="docDate" class="java.lang.String"/>
+	<parameter name="feeReference" class="java.lang.String"/>
+	<parameter name="payer" class="java.lang.String"/>
+	<parameter name="payerEmail" class="java.lang.String"/>
+	<parameter name="scheme" class="java.lang.String"/>
+	<parameter name="applicationNumber" class="java.lang.String"/>
+	<parameter name="description" class="java.lang.String"/>
+	<parameter name="feeTypeLabel" class="java.lang.String"/>
+	<parameter name="amount" class="java.lang.String"/>
+	<parameter name="dueDate" class="java.lang.String"/>
+	<parameter name="overdueDays" class="java.lang.Long"/>
+	<parameter name="settlementDate" class="java.lang.String"/>
+	<parameter name="paymentMethod" class="java.lang.String"/>
+	<parameter name="bankInDate" class="java.lang.String"/>
+	<parameter name="referenceNumber" class="java.lang.String"/>
+	<parameter name="receivedFrom" class="java.lang.String"/>
+	<parameter name="qrLabel" class="java.lang.String"/>
+	<parameter name="qrDetail" class="java.lang.String"/>
+	<parameter name="qrImage" class="java.io.InputStream"/>
+	<title height="104">
+		<element kind="textField" uuid="c3542b79-d607-4141-bada-bc1e85be46eb" x="0" y="0" width="300" height="15" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[$R{brand}]]></expression>
+		</element>
+		<element kind="textField" uuid="9b15db6e-3b70-4c3c-8b23-1bcc58eadc39" x="0" y="20" width="360" height="36" forecolor="#1B1F33" fontName="OMS Sans" fontSize="22.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[$R{title.receipt}]]></expression>
+		</element>
+		<element kind="textField" uuid="0e3c38ca-812d-430c-ac7c-3dca3eebf6de" x="315" y="22" width="200" height="15" forecolor="#6B7185" fontName="OMS Sans" fontSize="9.0" bold="false" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$P{docNumber}]]></expression>
+		</element>
+		<element kind="textField" uuid="d322f9e6-b6a5-4500-beab-01b2eb841b78" x="315" y="40" width="200" height="15" forecolor="#6B7185" fontName="OMS Sans" fontSize="9.0" bold="false" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$P{docDate}]]></expression>
+		</element>
+		<element kind="line" uuid="b183b699-2e0b-4c55-b065-e187fc847529" x="0" y="96" width="515" height="1" forecolor="#D9DDEA">
+			<pen lineWidth="0.6"/>
+		</element>
+	</title>
+	<detail>
+		<band height="540">
+			<element kind="textField" uuid="ff3ed88b-7397-417b-af70-bba787e5916e" x="0" y="0" width="515" height="20" forecolor="#1B1F33" fontName="OMS Sans" fontSize="11.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[String.format($R{receiptBody}, $P{payer})]]></expression>
+			</element>
+			<element kind="line" uuid="d4f546c3-094b-4945-921d-b4551cde5617" x="0" y="30" width="515" height="1" forecolor="#D9DDEA">
+				<pen lineWidth="0.6"/>
+			</element>
+			<element kind="textField" uuid="f5a62ddc-6e7d-4fee-84f5-c8c2c4b5024f" x="0" y="46" width="100" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{feeReference}]]></expression>
+			</element>
+			<element kind="textField" uuid="e4b59696-ebc1-44fa-a5c3-0033e74366fe" x="108" y="46" width="380" height="16" forecolor="#1B1F33" fontName="OMS Sans" fontSize="10.5" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{feeReference}]]></expression>
+			</element>
+			<element kind="textField" uuid="42dd2875-a61b-454c-8537-8f87553d7dcc" x="0" y="72" width="100" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{scheme}]]></expression>
+			</element>
+			<element kind="textField" uuid="a95493ea-eafe-410d-aac1-0b12a9bb1644" x="108" y="72" width="380" height="16" forecolor="#1B1F33" fontName="OMS Sans" fontSize="10.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{scheme}]]></expression>
+			</element>
+			<element kind="textField" uuid="ee3e037a-efd7-4810-8365-d960b4a0581b" x="0" y="98" width="100" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{description}]]></expression>
+			</element>
+			<element kind="textField" uuid="b5c7ccf5-51c9-448c-8b67-b13dd7a173ed" x="108" y="98" width="380" height="16" forecolor="#1B1F33" fontName="OMS Sans" fontSize="10.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{description}]]></expression>
+			</element>
+			<element kind="textField" uuid="a2ccbdf3-b28b-44f2-801e-f47eba93f6ed" x="0" y="124" width="100" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{feeType}]]></expression>
+			</element>
+			<element kind="textField" uuid="a27f3482-f66d-4e99-9cbb-9b74cd28094d" x="108" y="124" width="380" height="16" forecolor="#1B1F33" fontName="OMS Sans" fontSize="10.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{feeTypeLabel}]]></expression>
+			</element>
+			<element kind="textField" uuid="c15f378b-0e8d-411e-97be-310dadbbc9df" x="0" y="150" width="100" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{settlementDate}]]></expression>
+			</element>
+			<element kind="textField" uuid="446ab90c-6915-4731-bd3e-7e27a040c7d8" x="108" y="150" width="380" height="16" forecolor="#1B1F33" fontName="OMS Sans" fontSize="10.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{settlementDate}]]></expression>
+			</element>
+			<element kind="textField" uuid="e7d13fc4-6a3c-4561-91f3-817bb484a56c" x="0" y="176" width="100" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{paymentMethod}]]></expression>
+			</element>
+			<element kind="textField" uuid="d0b6bd62-bfb3-43d0-b541-3c7495497870" x="108" y="176" width="380" height="16" forecolor="#1B1F33" fontName="OMS Sans" fontSize="10.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{paymentMethod}]]></expression>
+			</element>
+			<element kind="textField" uuid="1d695ded-28d4-4d8a-b8be-1c348cfb01d6" x="0" y="202" width="100" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{bankInDate}]]></expression>
+			</element>
+			<element kind="textField" uuid="38428e78-e1bd-4419-a338-01ac11a2aa38" x="108" y="202" width="380" height="16" forecolor="#1B1F33" fontName="OMS Sans" fontSize="10.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{bankInDate}]]></expression>
+			</element>
+			<element kind="textField" uuid="6f7715c7-fb6b-489c-8bf8-a8585226fbb6" x="0" y="228" width="100" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{referenceNumber}]]></expression>
+			</element>
+			<element kind="textField" uuid="0914bf66-6954-44b8-964a-0e538b347429" x="108" y="228" width="380" height="16" forecolor="#1B1F33" fontName="OMS Sans" fontSize="10.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{referenceNumber}]]></expression>
+			</element>
+			<element kind="textField" uuid="12afb559-0f27-4eb3-bd06-1c0390528843" x="0" y="254" width="100" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{receivedFrom}]]></expression>
+			</element>
+			<element kind="textField" uuid="8d057bad-88dc-4339-a8e5-ccd3e6712904" x="108" y="254" width="380" height="16" forecolor="#1B1F33" fontName="OMS Sans" fontSize="10.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{receivedFrom}]]></expression>
+			</element>
+			<element kind="rectangle" uuid="db59fae7-a483-4245-98fa-72d11005421f" x="0" y="292" width="515" height="62" forecolor="#F2F0FE" backcolor="#F2F0FE" mode="Opaque"/>
+			<element kind="textField" uuid="d6f1dcaf-9212-4a92-8b5d-8164eb37adde" x="18" y="314" width="110" height="18" forecolor="#6B7185" fontName="OMS Sans" fontSize="10.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{amountReceived}]]></expression>
+			</element>
+			<element kind="textField" uuid="9989e879-2e4f-4c68-8da5-1152ca85b7cb" x="112" y="302" width="360" height="34" forecolor="#4B3FD1" fontName="OMS Sans" fontSize="20.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{amount}]]></expression>
+			</element>
+			<element kind="textField" uuid="2533c2ff-dc99-44d8-b1a9-037f6ea90aeb" x="0" y="374" width="330" height="30" forecolor="#6B7185" fontName="OMS Sans" fontSize="8.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{receiptHelp}]]></expression>
+			</element>
+			<element kind="textField" uuid="6d8458b4-5ae1-4178-859d-7e6d2182d25e" x="0" y="408" width="330" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="8.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$R{demoReceipt}]]></expression>
+			</element>
+			<element kind="textField" uuid="4cb1ce15-acd4-4dea-be48-813c0ce965b8" x="380" y="368" width="135" height="16" forecolor="#4B3FD1" fontName="OMS Sans" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{qrLabel}]]></expression>
+			</element>
+			<element kind="image" uuid="a77df63b-e7e4-4a14-901e-9d60ea7bdd13" x="380" y="388" width="100" height="100" scaleImage="RetainShape">
+				<expression><![CDATA[$P{qrImage}]]></expression>
+			</element>
+			<element kind="textField" uuid="92a84c7b-c9ae-4039-884e-2872464db940" x="376" y="496" width="140" height="16" forecolor="#6B7185" fontName="OMS Sans" fontSize="8.5" bold="false" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{qrDetail}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="42">
+		<element kind="line" uuid="e47c9702-c615-4052-9d5c-6c1eff4fa3df" x="0" y="0" width="515" height="1" forecolor="#D9DDEA">
+			<pen lineWidth="0.6"/>
+		</element>
+		<element kind="textField" uuid="f161a887-6ce4-4853-96b6-6efa7dbc5d55" x="0" y="10" width="300" height="14" forecolor="#6B7185" fontName="OMS Sans" fontSize="8.0" bold="false" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[$R{footer}]]></expression>
+		</element>
+		<element kind="textField" uuid="348e9f31-bcfd-4d4a-8d57-ffefaf1e7e63" x="300" y="10" width="215" height="14" forecolor="#6B7185" fontName="OMS Sans" fontSize="8.0" bold="false" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[String.format($R{pageNumber}, $V{PAGE_NUMBER})]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>
